@@ -74,3 +74,24 @@ while [ "$salir" == 0 ]; do
                         ;;
                 2) ##Impresión en pantalla de las instrucciones de juego
                         opc=0
+                        clear
+                        echo -e "\e[1;33m\n\n\t\tPrueba tu suerte con las cartas\n\n"
+                        echo -e "\e[1;32m     El objetivo del juego es sacar la carta mas alta."
+                        echo -e "     Jugaras en contra de nuestro mejor jugador, en \n\tel juego se repartira una carta aleatoriamente.\n"
+                        echo -e "     Si la tuya es la mas alta ganaras, si no, bueno \n\tes obvio que seras el perdedor"
+                        echo -e "     \t\t\t¿Te arriesgaras? \n"
+                        echo -e "     Todo depende de que tan suertudo te sientas hoy ;)\n"
+
+                        echo -e "\e[1;31m\n\tPresiona 'enter' para volver al menú principal."
+                        read
+                        clear 
+                        ;;
+                3) #Salir del juego
+                        salir=1
+                        ;;
+                *)
+                        opc=0
+                        ;;
+        esac
+done
+
