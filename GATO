@@ -54,3 +54,62 @@ echo -e $jugador_1" VS "$jugador_2
 
 #Aqui acaba la parte en la que definimos los nombres y todo eso
 ##############################################################################################
+#Con la siguiente función vamos a dibujar el gato en cada turno
+
+#Vector que va a guardar los las jugadas de los usuarios.
+vector_de_posiciones=(- - - - - - - - -)  # vector de posiciones
+
+function dibujar_gato {
+  clear # borra el gato del turno pasado
+
+  posiciones_guardadas=$1[@]  # La funcion lee las posiciones guardadas en el vector y con ellas funciona
+  posiciones=("${!posiciones_guardadas}") # nuevo valor del vector
+  banner "RONDA-1" #letrero de ronda
+
+  for (( fila=1; fila<=3; fila++ ));do #En este for se va a hacer las filas tanto vacías como con caracteres
+    
+    espacio="    " #Son los espacios de las filas en donde pueden estar X o O
+    espacio_vacio="    " #Son los espacios de las filas en donde no van a estar X o O
+    for (( columna=1; columna<$((30)); columna++ ));do
+            
+      if [[ $(( $columna%((10)) )) == 0 ]]; then #Cada desima columna ponemos un espacio y la barra | que formara el gato
+        espacio=$espacio"|" 
+        espacio_vacio=$espacio_vacio"|" #en ambos tipos de espacios creamos el | para que sea una linea "continua"
+      else
+        if [[ $(( $columna%5 )) == 0 ]]; then #SI es verdad, en estos puntos es donde se encuentra el espacio que tiene a X o O
+
+          x=$(($fila-1))
+          y=$((($columna - 5) / 10))
+
+          if [[ $x == 0 ]]; then
+            simbolo=${posiciones[$y]} #Analiza el valor que tiene el vector posición en cada espacio centrico del gato
+          elif [[ $x == 1 ]]; then
+            simbolo=${posiciones[(($y+3))]} #Guarda el valor de esa posicion, ya sea X o O
+          else
+            simbolo=${posiciones[(($y+6))]}
+          fi
+
+          
+          if [[ $simbolo == "-" ]]; then simbolo=" "; fi # Si el simbolo resulta - es porque ninguno de los jugadores ha escogido esa posicion y se guarda el simbolo actual como vacío
+
+          if [[ $simbolo == "X" ]] ; then  # Si el simbolo es X, el jugador 1 ya había seleccionado ese espacio
+            espacio=$espacio$color_jugador1$simbolo$borrar_formato_de_letra # vuelve a poner una X con el color del jugador en ese espacio
+          else
+            espacio=$espacio$color_jugador2$simbolo$borrar_formato_de_letra
+          fi
+
+          espacio_vacio=$espacio_vacio" "  # Agrega un esacio en vez de un símbolo, porque esa casilla aun no se escoge
+        else  # EL espacio no es de los que contiene a X o O por lo que se remplaza con un espacio
+          espacio=$espacio" "
+          espacio_vacio=$espacio_vacio" "
+        fi
+      fi
+    done
+   echo -e "$espacio_vacio""\n""$espacio""\n""$espacio_vacio"  # Se llenan las filas con espacios
+    if [[ $fila != 3 ]]; then 
+      echo -e "       __ __ __ __ __ __ __ __        " #imprime las lineas horizontales
+    fi
+  done
+  echo -e "\n"
+}
+##############################################################3
