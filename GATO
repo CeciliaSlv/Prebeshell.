@@ -1,7 +1,20 @@
 
+
+#!/bin/bash
+
+# GATO!!! 
+
+
 ########################################################################################
 #Aqui empieza la parte para definir formatos de texto, pedir nombres a usuarios, etc.
 #Generar un numero aleatorio para que el color de cada usuario sea aleatorio
+clear
+echo "Nombre de jugador 1:"
+read nombre_de_jugador_1
+echo "Nombre de jugador 2:"
+read nombre_de_jugador_2
+
+
 numero_jugador1=$((RANDOM % 9))
 numero_jugador2=$((RANDOM % 9))
 borrar_formato_de_letra="\033[0m"
@@ -37,12 +50,9 @@ then
     color_jugador1="\033[1;31m"
     color_jugador2="\033[1;34m"
 fi
-
+clear
 #Pedir y guardar el nombre de los jugadores
-echo "Nombre de jugador 1:"
-read nombre_de_jugador_1
-echo "Nombre de jugador 2:"
-read nombre_de_jugador_2
+
 
 clear #Limpiar pantalla
 
@@ -50,22 +60,25 @@ clear #Limpiar pantalla
 jugador_1=$color_jugador1"$nombre_de_jugador_1"$borrar_formato_de_letra
 jugador_2=$color_jugador2"$nombre_de_jugador_2"$borrar_formato_de_letra
 
-echo -e $jugador_1" VS "$jugador_2
 
 #Aqui acaba la parte en la que definimos los nombres y todo eso
 ##############################################################################################
-#Con la siguiente función vamos a dibujar el gato en cada turno
 
-#Vector que va a guardar los las jugadas de los usuarios.
-vector_de_posiciones=(- - - - - - - - -)  # vector de posiciones
 
-function dibujar_gato {
-  clear # borra el gato del turno pasado
+posiciones=(- - - - - - - - -)  # vector de posiciones
+
+turno_jugador_1=true  # Inicializa la ronda con el jugador 1
+final_de_ronda=false  #Estado de la ronda
+accion_invalida=false  #Accion invalida 
+########################################################################################################
+function dibujar_gato { #funcion que va a dibujar el gato cada turno
+  
+  clear
 
   posiciones_guardadas=$1[@]  # La funcion lee las posiciones guardadas en el vector y con ellas funciona
   posiciones=("${!posiciones_guardadas}") # nuevo valor del vector
-  banner "RONDA-1" #letrero de ronda
-
+  banner "FIGHT!" 
+echo -e "\t    "$jugador_1" VS "$jugador_2 "\n\n"
   for (( fila=1; fila<=3; fila++ ));do #En este for se va a hacer las filas tanto vacías como con caracteres
     
     espacio="    " #Son los espacios de las filas en donde pueden estar X o O
@@ -99,17 +112,108 @@ function dibujar_gato {
           fi
 
           espacio_vacio=$espacio_vacio" "  # Agrega un esacio en vez de un símbolo, porque esa casilla aun no se escoge
-        else  # EL espacio no es de los que contiene a X o O por lo que se remplaza con un espacio
+        else  # EL espacio no es de los que contiene a X o O por lo que se remplaza con
           espacio=$espacio" "
           espacio_vacio=$espacio_vacio" "
         fi
       fi
     done
-   echo -e "$espacio_vacio""\n""$espacio""\n""$espacio_vacio"  # Se llenan las filas con espacios
-    if [[ $fila != 3 ]]; then 
+   echo -e "$espacio_vacio""\n""$espacio""\n""$espacio_vacio" #imprime los espacios de las filas
+    if [[ $fila != 3 ]]; then
       echo -e "       __ __ __ __ __ __ __ __        " #imprime las lineas horizontales
     fi
   done
   echo -e "\n"
+
+  echo -e "            COMANDOS      "
+  echo -e "            1 \ 2 \ 3       "
+  echo -e "           ----\---\----    "
+  echo -e "              4 \ 5 \ 6     "
+  echo -e "             ----\---\----  "
+  echo -e "                7 \ 8 \ 9   "
+  echo -e "\n"
 }
-##############################################################3
+##################################################################################################
+
+function analizar_jugadas { #Funcion que va a leer el movimiento hecho cada turno
+
+  caracteres_posiciones=$(printf "%s" "${posiciones[@]}") #convertimos el vector en un conjunto de caracteres
+
+  analizar_estado_partida $caracteres_posiciones #Analiza si el juego ha terminado
+
+  if [ "$final_de_ronda" = false ] ; then #si la ronda aun no acaba
+
+    if [ "$accion_invalida" = false ] ; then # si la accion es valida
+      if [ "$turno_jugador_1" = true ] ; then #si es el turno del jugador 1
+        echo -e "\t   Turno de "$jugador_1 #el signo va a ser X
+        signo="X"
+        turno_jugador_1=false #cambio de turno
+      else
+        echo -e "\t   Turno de "$jugador_2 # el signo va a ser O
+        signo="O"
+        turno_jugador_1=true #cambio de turno
+      fi
+    else
+      accion_invalida=false
+    fi
+
+    read -d'' -s -n1 seleccion  # leer el comando del jugador
+
+    casilla=343270  # inicializa casilla con cualquier numero que no sea valido en caso de que el primer comando que haga no sea valido
+    case $seleccion in
+          1) casilla=0;;
+          2) casilla=1;;
+          3) casilla=2;;
+          4) casilla=3;;
+          5) casilla=4;;
+          6) casilla=5;;
+          7) casilla=6;;
+          8) casilla=7;;
+          9) casilla=8;;
+    esac
+
+    if [ "${posiciones["$casilla"]}" == "-" ]; then
+      posiciones["$casilla"]=$signo 
+    else
+      accion_invalida=true  # De otra forma la seleccion del jugador sería invalida
+    fi
+
+    activar_ronda  # Mientras la ronda no haya acabado, se seguira realizando el programa
+  fi
+
+
+}
+########################################################################################
+function activar_ronda {
+  dibujar_gato posiciones
+  analizar_jugadas
+}
+
+function finalizar_ronda {
+  final_de_ronda=true
+  dibujar_gato posiciones
+}
+
+#################################################################################
+function analizar_estado_partida { #analizamos los caracteres para saber si algun jugador ha ganado
+  espacios=${1:0:3}" "${1:3:3}" "${1:6:8}
+  columnas=${1:0:1}${1:3:1}${1:6:1}" "${1:1:1}${1:4:1}${1:7:1}" "${1:2:1}${1:5:1}${1:8:1}
+  diagonales=${1:0:1}${1:4:1}${1:8:1}" "${1:2:1}${1:4:1}${1:6:1}
+  if [[ $espacios =~ [X]{3,} || $columnas =~ [X]{3,} || $diagonales =~ [X]{3,} ]]; then
+    finalizar_ronda
+    echo -e "\t  "$jugador_1" ha ganado! \n"
+    return
+  fi
+  if [[ $espacios =~ [O]{3,} || $columnas =~ [O]{3,} || $diagonales =~ [O]{3,} ]]; then
+    finalizar_ronda
+    echo -e "\t  "$jugador_2" ha ganado"
+    return
+  fi
+  if [[ ! $caracteres_posiciones =~ [-] ]]; then  # todas las posiciones se ocuparon por lo que es un empate
+    finalizar_ronda
+    echo -e "\t\tEmpate \n"
+  fi
+}
+############################################################################################
+
+activar_ronda
