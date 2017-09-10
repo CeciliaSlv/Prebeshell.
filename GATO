@@ -1,1 +1,56 @@
 
+########################################################################################
+#Aqui empieza la parte para definir formatos de texto, pedir nombres a usuarios, etc.
+#Generar un numero aleatorio para que el color de cada usuario sea aleatorio
+numero_jugador1=$((RANDOM % 9))
+numero_jugador2=$((RANDOM % 9))
+borrar_formato_de_letra="\033[0m"
+
+#Asignar color a usuario 1
+   case $numero_jugador1 in
+          0) color_jugador1="\033[1;31m";; #ROJO
+          1) color_jugador1="\033[1;30m";; #NEGRO
+          2) color_jugador1="\033[1;32m";; #VERDE
+          3) color_jugador1="\033[1;33m";; #AMARILLO
+          4) color_jugador1="\033[1;34m";; #AZUL FUERTE
+          5) color_jugador1="\033[1;35m";; #MORADO
+          6) color_jugador1="\033[1;36m";; #AZUL CLARO
+          7) color_jugador1="\033[1;37m";; #BLANCO
+      *) color_jugador1="\033[1;31m";; #ROJO
+    esac
+#Asignar color a usuario 2
+  case $numero_jugador2 in
+          0) color_jugador2="\033[1;31m";; #ROJO
+          1) color_jugador2="\033[1;30m";; #NEGRO
+          2) color_jugador2="\033[1;32m";; #VERDE
+          3) color_jugador2="\033[1;33m";; #AMARILLO
+          4) color_jugador2="\033[1;34m";; #AZUL FUERTE
+          5) color_jugador2="\033[1;35m";; #MORADO
+          6) color_jugador2="\033[1;36m";; #AZUL CLARO
+          7) color_jugador2="\033[1;37m";; #BLANCO
+      *) color_jugador2="\033[1;34m";; #AZUL FUERTE
+    esac
+
+#Evitar que el color de los jugadores sea el mismo
+if [ $color_jugador1 = $color_jugador2 ]
+then
+    color_jugador1="\033[1;31m"
+    color_jugador2="\033[1;34m"
+fi
+
+#Pedir y guardar el nombre de los jugadores
+echo "Nombre de jugador 1:"
+read nombre_de_jugador_1
+echo "Nombre de jugador 2:"
+read nombre_de_jugador_2
+
+clear #Limpiar pantalla
+
+#Variables que van a contener el texto con formato de los nombres de los usuarios
+jugador_1=$color_jugador1"$nombre_de_jugador_1"$borrar_formato_de_letra
+jugador_2=$color_jugador2"$nombre_de_jugador_2"$borrar_formato_de_letra
+
+echo -e $jugador_1" VS "$jugador_2
+
+#Aqui acaba la parte en la que definimos los nombres y todo eso
+##############################################################################################
