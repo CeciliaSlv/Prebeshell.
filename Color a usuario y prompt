@@ -1,0 +1,47 @@
+	#Definimos los colores de el usuario y el prompt
+numero_usuario=$((RANDOM % 9))
+numero_prompt=$((RANDOM % 9))
+borrar_formato_de_letra="\033[0m"
+
+      	  rojo="\033[1;31m" #ROJO
+          negro="\033[1;30m" #NEGRO
+          verde="\033[1;32m" #VERDE
+          amarillo="\033[1;33m" #AMARILLO
+          azulf="\033[1;34m" #AZUL FUERTE
+          morado="\033[1;35m" #MORADO
+          azulc="\033[1;36m" #AZUL CLARO
+          blanco="\033[1;37m" #BLANCO
+
+#Asignar color a usuario 1
+   case $numero_usuario in
+          0) color_usuario="\033[1;31m";; #ROJO
+          1) color_usuario="\033[1;30m";; #NEGRO
+          2) color_usuario="\033[1;32m";; #VERDE
+          3) color_usuario="\033[1;33m";; #AMARILLO
+          4) color_usuario="\033[1;34m";; #AZUL FUERTE
+          5) color_usuario="\033[1;35m";; #MORADO
+          6) color_usuario="\033[1;36m";; #AZUL CLARO
+          7) color_usuario="\033[1;37m";; #BLANCO
+      *) color_usuario="\033[1;31m";; #ROJO
+    esac
+#Asignar color a usuario 2
+  case $numero_prompt in
+          0) color_prompt="\033[1;31m";; #ROJO
+          1) color_prompt="\033[1;30m";; #NEGRO
+          2) color_prompt="\033[1;32m";; #VERDE
+          3) color_prompt="\033[1;33m";; #AMARILLO
+          4) color_prompt="\033[1;34m";; #AZUL FUERTE
+          5) color_prompt="\033[1;35m";; #MORADO
+          6) color_prompt="\033[1;36m";; #AZUL CLARO
+          7) color_prompt="\033[1;37m";; #BLANCO
+      *) color_prompt="\033[1;34m";; #AZUL FUERTE
+    esac
+
+#Evitar que el color de los jugadores sea el mismo
+if [ $color_usuario = $color_prompt ]
+then
+    color_usuario="\033[1;31m"
+    color_prompt="\033[1;34m"
+fi
+usuario=$color_usuario"$USER"$borrar_formato_de_letra
+prompt=$color_prompt"@:~$PWD$"$borrar_formato_de_letra
