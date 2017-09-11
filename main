@@ -1,0 +1,51 @@
+#No salir con Ctrl-z y Ctrl-c
+trap '' 2 20
+trap '' SIGTSTP
+printf "\033c" #limpia
+#Contador para los intentos
+intentos=0
+while [ "$intentos" != 3 ]; do
+        cdo=$PWD 
+        echo -e "\nIngresa tu usuario :"
+        read usuario  
+        echo -e "\nContrasena:"
+        read -s contrasena
+        cont=`sudo -S grep -c "$usuario" /etc/shadow`
+        con=`echo "$contrasena" | sudo -S grep -r "$usuario" /etc/shadow`
+        if [ $cont -ne 0 ];then 
+    
+    read -r -a arshdw <<< "$con"  
+                tencript="sha-512"
+                co=`mkpasswd --method=$tencript --salt=${arshdw[2]} $contrasena`
+                c=":"
+                contra=$usuario$c$co    
+
+                if [[ $con == *$contra* ]];then 
+                        printf "\033c" #limpia
+
+                while [ "$comando"  != 'salir' ];do
+                #Definicion de nuestro prompt
+                echo  "PREBESHELL#$USER-Estas en:$PWD=>" 
+                read  comando 
+                case "$comando" in
+                "ayuda") cd $cdo  /bin/bash ./generales.sh ayuda;;
+                "infosis") cd $cdo  /bin/bash ./infosis.sh ;;
+                "fecha") cat /proc/driver/rtc | egrep -o -m 1 [0-9]{4}+"-"+[0-9]{2}+"-"+[0-9]{2} ;;
+                "hora") cat /proc/driver/rtc | egrep -o -m 1 [0-9]{2}+":"+[0-9]{2}+":"+[0-9]{2}  ;;
+                "GATO") cd $cdo  /bin/bash ./GATO.sh ;;
+                "LUCKY") cd $cdo  /bin/bash ./LUCKY.sh;;
+                "cls") printf "\033c";;
+                "salir") exit 1;;
+                *)$comando;;
+                esac
+                done
+        else
+        echo -e "\nVerifica tus datos:"
+        let intentos=$intentos+1 
+        fi
+
+        else
+        echo -e "\nVerifica tus datos:" 
+        let intentos=$intentos+1
+        fi
+done
