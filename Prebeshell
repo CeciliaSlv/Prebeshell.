@@ -491,6 +491,13 @@ usuario=$color_usuario"$USER"$borrar_formato_de_letra
 prompt=$color_prompt"@:~$PWD$"$borrar_formato_de_letra
 ################################################################################################################################3
 clear
+echo -n -e Usuario:
+read -e $us
+echo -n -e Contraseña:
+read -e -s $con
+
+echo -e "\nBienvenido!!"
+
 echo  -e "Prebeshell activa"
 while [ "$respuesta" != "salir" ];
 do
