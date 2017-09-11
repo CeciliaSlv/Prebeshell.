@@ -1,13 +1,9 @@
+#funcion de el juego de gato
+function juego_gato(){
 
+sudo apt-get install whois
+sudo apt-get install banner
 
-#!/bin/bash
-
-# GATO!!! 
-
-
-########################################################################################
-#Aqui empieza la parte para definir formatos de texto, pedir nombres a usuarios, etc.
-#Generar un numero aleatorio para que el color de cada usuario sea aleatorio
 clear
 echo "Nombre de jugador 1:"
 read nombre_de_jugador_1
@@ -62,15 +58,13 @@ jugador_2=$color_jugador2"$nombre_de_jugador_2"$borrar_formato_de_letra
 
 
 #Aqui acaba la parte en la que definimos los nombres y todo eso
-##############################################################################################
-
 
 posiciones=(- - - - - - - - -)  # vector de posiciones
 
 turno_jugador_1=true  # Inicializa la ronda con el jugador 1
 final_de_ronda=false  #Estado de la ronda
 accion_invalida=false  #Accion invalida 
-########################################################################################################
+
 function dibujar_gato { #funcion que va a dibujar el gato cada turno
   
   clear
@@ -133,7 +127,6 @@ echo -e "\t    "$jugador_1" VS "$jugador_2 "\n\n"
   echo -e "                7 \ 8 \ 9   "
   echo -e "\n"
 }
-##################################################################################################
 
 function analizar_jugadas { #Funcion que va a leer el movimiento hecho cada turno
 
@@ -183,7 +176,6 @@ function analizar_jugadas { #Funcion que va a leer el movimiento hecho cada turn
 
 
 }
-########################################################################################
 function activar_ronda {
   dibujar_gato posiciones
   analizar_jugadas
@@ -194,7 +186,6 @@ function finalizar_ronda {
   dibujar_gato posiciones
 }
 
-#################################################################################
 function analizar_estado_partida { #analizamos los caracteres para saber si algun jugador ha ganado
   espacios=${1:0:3}" "${1:3:3}" "${1:6:8}
   columnas=${1:0:1}${1:3:1}${1:6:1}" "${1:1:1}${1:4:1}${1:7:1}" "${1:2:1}${1:5:1}${1:8:1}
@@ -214,6 +205,7 @@ function analizar_estado_partida { #analizamos los caracteres para saber si algu
     echo -e "\t\tEmpate \n"
   fi
 }
-############################################################################################
 
 activar_ronda
+
+}
