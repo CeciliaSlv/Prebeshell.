@@ -1,0 +1,11 @@
+    	echo -e "Los comandos son los siguientes:\n"
+			echo -e $rojo"arbol2 - crea una imagen gráfica de la estructura de directorios actuales\n"$borrar_formato_de_letra
+			echo -e $negro"ayuda - despliega en pantalla informacion relevante acerca de las funciones con las que cunenta la prebeshell, además de una breve descripción de cada uno de ellos y su funcionamiento\n"$borrar_formato_de_letra
+			echo -e $verde"buscar <archivo> <directorio> - busca un directorio especificado en un directorio igualmente especificado creditos - imprime los creditos de la prebeshell\n"$borrar_formato_de_letra
+			echo -e $azulc"creditos - mustra los creditos e informacion de los creadores de la prebeshell\n"$borrar_formato_de_letra
+			echo -e $amarillo"dia - muestra el dia actual\n"$borrar_formato_de_letra
+			echo -e $azulf"gato - activa el juego para dos de gato\n"$borrar_formato_de_letra
+			echo -e $morado"hora - muestra la hora actual\n"$borrar_formato_de_letra
+			echo -e $azulc"infosis <opcion> - muestra informacion del sistema dependiendo del comando usado, <version> para mostrar la version del kernel, <hardware> para imprimir el tipo de hardware, <red> para ver tu red\n"$borrar_formato_de_letra
+			echo -e $blanco"lucky - activa el juego de azar\n"$borrar_formato_de_letra
+			echo -e $negro"prebeplayer - ejecuta el reproductor mp3"$borrar_formato_de_letra
