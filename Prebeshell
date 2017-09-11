@@ -1,4 +1,161 @@
 #!/bin/sh
+trap 'echo "Para salir, tienes que escribir "salir"."' SIGINT
+
+trap 'echo "Para salir, tienes que escribir "salir"."' SIGTSTP
+#######################################################################################################################################
+function lucky(){
+
+	#MENÚ PRINCIPAL
+
+salir=0
+opc=0
+suits=("Oros" "Copas" "Espadas" "Bastos")
+faces=(1 2 3 4 5 6 7 10 11 12)
+while [ "$salir" == 0 ]; do
+        case "$opc" in
+                0) #Imprime el menu
+                        echo -e "\t\t\e[1;33m \n\n\n\t\t    B I E N V E N I D O   A:\n"       
+                        echo -e "\t\t\e[1;37m  ************************__******************** ""\e[0m"
+                        echo -e "\t\t\e[1;37m  ***___*****************| |***__*************** ""\e[0m"
+                        echo -e "\t\t\e[1;37m  ***|  |****************| |**/ /*****__* _***** ""\e[0m"
+                        echo -e "\t\t\e[1;37m  ***|  |****************| |*/ /  \**/  /| |**** ""\e[0m"
+                        echo -e "\t\t\e[1;37m  ***|  |***__***__*_____| |/ /*\  \/  /*| |**** ""\e[0m"
+                        echo -e "\t\t\e[1;37m  ***|  |***| |*| |/  ___|   /***\    /**| |**** ""\e[0m"
+                        echo -e "\t\t\e[1;37m  ***|  |***| |*| |  /***|   \****|  |***|_|**** ""\e[0m"
+                        echo -e "\t\t\e[1;37m  ***|  |___| |_| |  \___| |\ \***|  |*** _ **** ""\e[0m"
+                        echo -e "\t\t\e[1;37m  ***|______\_____/\_____|_|*\_\**|__|***|_|**** ""\e[0m"
+                        echo -e "\t\t\e[1;37m  ********************************************** ""\e[0m"
+                        echo -e "\e[1;33m\n\n\t\t    Selecciona una opción \e[0;33m(número+'enter')\e[1;33m:\e[1;37m\n\n\t\t\t      1) JUEGO 1
+                                   3) INSTRUCCIONES \n\t\t\t      4) SALIR \n\t\t\t  \e[0m HABIA OTRO SUBJUEGO PERO NO LOGRAMOS QUE FUNCIONARA"  #2) JUEGO 2\n\t\t\t 
+                        read opc
+                        ;;
+                1) #Empieza juego 1
+                        opc=0
+                        macho=(${faces[$((RANDOM%9))]} ${suits[$((RANDOM%3))]});
+                        jugador=(${faces[$((RANDOM%9))]} ${suits[$((RANDOM%3))]});
+                        echo -e "\t\t\tIniciaste un juego vaquero" 
+                        echo -e "\t\t\tEl macho tiene la carta: " ${macho[@]};
+                        echo -e "\t\t\t¿Quieres una carta,si o no?"
+                        read respuesta
+                        if [ $respuesta = 'si' ]; then       
+                                echo -e "\t\t\tTu carta es: " ${jugador[@]};
+                                a=${macho[0]}
+                                b=${jugador[0]}
+                                if [ ${macho[0]} = ${jugador[0]} ]; then
+                                echo -e "\t\t\e[1;37m\e[1;41m"'           _____                      __        ' "\e[0m"
+                                echo -e "\t\t\e[1;37m\e[1;41m"'          / ___/__       ____      __/ /__      ' "\e[0m"
+                                echo -e "\t\t\e[1;37m\e[1;41m"'         / /__ / /____  / _  /____/__  __/__    ' "\e[0m"
+                                echo -e "\t\t\e[1;37m\e[1;41m"'        / ___//       \/ ___/ _   / / / __  /   ' "\e[0m"
+                                echo -e "\t\t\e[1;37m\e[1;41m"'       / /__ /  /  /  / /  / /_/ /_/ / ____/    ' "\e[0m"
+                                echo -e "\t\t\e[1;37m\e[1;41m"'      /_____/__/__/__/_/  /____/__/_/_____/     ' "\e[0m"                      $
+                                echo -e "\e[1;31m\n\tPresiona 'enter' para volver al menú principal."
+                                read
+                                clear
+                                elif [ $a -gt $b ]; then 
+                                echo -e "\t\t\e[1;37m \n\n\n\t\t\t               GANO EL MACHO!!    \n"       
+                                echo -e "\t\t\e[1;37m\e[1;41m"'          ____           _____        __          ' "\e[0m"
+                                echo -e "\t\t\e[1;37m\e[1;41m"'         / __ \___  ____/  /_/_______/ /_____     ' "\e[0m"
+                                echo -e "\t\t\e[1;37m\e[1;41m"'        / /_/ / _ \/ __/  /__  ___/__  __/ _ \    ' "\e[0m"
+                                echo -e "\t\t\e[1;37m\e[1;41m"'       / ____/  __/ / _  /  /__  /  / / / ___/    ' "\e[0m"
+                                echo -e "\t\t\e[1;37m\e[1;41m"'      /_/   /____/_/____/__/____/  /_/  \___/     ' "\e[0m"  
+                                echo -e "\t\t\e[1;37m\e[1;41m"'                                                  ' "\e[0m"
+
+                                echo -e "\e[1;31m\n\tPresiona 'enter' para volver al menú principal."
+                                read
+                                clear
+                                elif [ $b -gt $a ]; then
+                                echo -e "\t\t\e[1;37m\e[1;41m"'     ______                              __        ' "\e[0m"
+                                echo -e "\t\t\e[1;37m\e[1;41m"'    / ____/                           __/ /__      ' "\e[0m"
+                                echo -e "\t\t\e[1;37m\e[1;41m"'   /  /_________  _____ ______   ____/__  __/__    ' "\e[0m"
+                                echo -e "\t\t\e[1;37m\e[1;41m"'  /  __  /  _  / /     /  _   / /   __ / / __  /   ' "\e[0m"
+                                echo -e "\t\t\e[1;37m\e[1;41m"' /  /_/ /  /_//_/  /  /  /_/ /_/___   / / ____/    ' "\e[0m"
+                                echo -e "\t\t\e[1;37m\e[1;41m"'/______/_______/__/__/_________/_____/_/_____/     ' "\e[0m"
+                                echo -e "\t\t\e[1;37m\e[1;41m"'                                                   ' "\e[0m"
+
+                                echo -e "\e[1;31m\n\tPresiona 'enter' para volver al menú principal."
+                                read
+                                clear
+                                fi
+                        fi
+                        opc=0
+                        ;;
+              #  2) ##Juego 2
+             #           echo -e "\t\t\tIniciaste un juego vaquero"      
+               #         res=0
+               #         cuenta=()
+              #          op=0
+              #          while [ $op == 0 ];do 
+               #         echo "¿Quiere una carta, si o no ?"
+                #        read respuesta
+                 #       if [ $respuesta = 'si' ]; then
+                 #               jugador=(${faces[$((RANDOM%9))]} ${suits[$((RANDOM%3))]});
+                 #               echo -e "\t\t\tTu carta es: " ${jugador[@]};
+                 #               cuenta=("${cuenta[@]}" ${jugador[0]})
+                 #               echo ${cuenta[@]}
+                 #               echo ${cuenta[@]} | awk {for((i=1;i<=NF;i++)){if[ $i==10||$i==11||$i==12 ]{res+=0.5;}else{res+=$i;}}}END{print re$}#
+                #
+                 #       elif [ $respuesta = 'no' ];then
+                  #              echo "OK!!"
+                   #             op=1
+                    #    fi
+                     #   done
+                      #          if [ "$res" = "7.5" ];then
+                    #                 echo -e "\t\t\e[1;37m\e[1;41m"'     ______                              __        ' "\e[0m"
+                    #                    echo -e "\t\t\e[1;37m\e[1;41m"'    / ____/                           __/ /__      ' "\e[0m"
+                    #                    echo -e "\t\t\e[1;37m\e[1;41m"'   /  /_________  _____ ______   ____/__  __/__    ' "\e[0m"
+                    #                    echo -e "\t\t\e[1;37m\e[1;41m"'  /  __  /  _  / /     /  _   / /   __ / / __  /   ' "\e[0m"
+                    #                    echo -e "\t\t\e[1;37m\e[1;41m"' /  /_/ /  /_//_/  /  /  /_/ /_/___   / / ____/    ' "\e[0m"
+                    #                    echo -e "\t\t\e[1;37m\e[1;41m"'/______/_______/__/__/_________/_____/_/_____/     ' "\e[0m"
+                    #                    echo -e "\t\t\e[1;37m\e[1;41m"'                                                   ' "\e[0m"
+                    #                    echo -e "\e[1;31m\n\tPresiona 'enter' para volver al menú principal."
+                    #            read
+                    #            clear
+                    #            elif [ "$res" != "7.5" ];then 
+                    #                    echo -e "\t\t\e[1;37m\e[1;41m"'          ____           _____        __          ' "\e[0m"
+                    #                    echo -e "\t\t\e[1;37m\e[1;41m"'         / __ \___  ____/  /_/_______/ /_____     ' "\e[0m"
+                    #                    echo -e "\t\t\e[1;37m\e[1;41m"'        / /_/ / _ \/ __/  /__  ___/__  __/ _ \    ' "\e[0m"
+                    #                    echo -e "\t\t\e[1;37m\e[1;41m"'       / ____/  __/ / _  /  /__  /  / / / ___/    ' "\e[0m"
+                    #                    echo -e "\t\t\e[1;37m\e[1;41m"'      /_/   /____/_/____/__/____/  /_/  \___/     ' "\e[0m"  
+                    #                    echo -e "\t\t\e[1;37m\e[1;41m"'                                                  ' "\e[0m" 
+                    #                    echo -e "\e[1;31m\n\tPresiona 'enter' para volver al menú principal."
+                    #            read
+                    #            clear
+                    #            fi
+                    #     opc=0
+                     #   ;;
+
+                3) ##Impresión en pantalla de las instrucciones de juego
+                        opc=0
+                        clear
+                        echo -e "\e[1;33m\n\n\t\tPrueba tu suerte con las cartas del juego 1\n\n"
+                        echo -e "\e[1;32m     El objetivo del juego es sacar la carta mas alta."
+                        echo -e "     Jugaras en contra de nuestro mejor jugador, en \n\tel juego se repartira una carta aleatoriamente.\n"
+                        echo -e "     Si la tuya es la mas alta ganaras, si no, bueno \n\tes obvio que seras el perdedor"
+                        echo -e "     \t\t\t¿Te arriesgaras? \n"
+                        echo -e "     Todo depende de que tan suertudo te sientas hoy ;)\n"
+                        
+                  #      echo -e "\e[1;33m\n\n\t\tPrueba tu suerte con las cartas del juego 2\n\n"
+                 #       echo -e "\e[1;32m   ¿Sabes jugar 7 1/2 ?"
+                  #      echo -e "  El objetivo del juego es juntar 7 1/2 puntos: \n Se te dara la opcion de pedir o no una carta si te pasas o te falta pierdes\n"
+                   #     echo -e "    Recuerda que el 10 11 y 12 valen por 1/2\n"
+                    #    echo -e "     \t\t\t¿Te arriesgaras? \n"
+                    #    echo -e "     Todo depende de que tan suertudo te sientas hoy ;)\n"
+                        
+                        echo -e "\e[1;31m\n\tPresiona 'enter' para volver al menú principal."
+                        read
+                        clear 
+                        ;;
+
+                4)      #Salir del juego
+                        salir=1
+                        ;;
+
+                *)
+                        opc=0
+                        ;;
+        esac
+done
+}
 
 ####################################################################################################################################
 #funcion de mp3
@@ -348,7 +505,7 @@ case $respuesta in
 			;;
 
 		lucky)	
-			#hacer comando que muestre tipo arbol
+			lucky
 			;;
 
 		prebeplayer)	
@@ -377,7 +534,7 @@ case $respuesta in
 			echo -e "Garrido Mendoza Luis Alberto"$borrar_formato_de_letra
 			;;
 		arbol2)	
-			#hacer comando que muestre tipo arbol
+			echo "no se pudo :("
 			;;
 
 		infosis)	
@@ -397,7 +554,7 @@ case $respuesta in
 			;;
 
 		buscar)
-			#hacer el comando de buscar
+			echo "no se pudo pudo :(" 
 			;;
 
 		hora)
@@ -413,3 +570,8 @@ case $respuesta in
 		esac
 
 done
+
+
+			
+
+
