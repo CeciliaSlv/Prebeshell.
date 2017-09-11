@@ -1,0 +1,107 @@
+#!/bin/sh
+	########################
+numero_usuario=$((RANDOM % 9))
+numero_prompt=$((RANDOM % 9))
+borrar_formato_de_letra="\033[0m"
+
+#Asignar color a usuario 1
+   case $numero_usuario in
+          0) color_usuario="\033[1;31m";; #ROJO
+          1) color_usuario="\033[1;30m";; #NEGRO
+          2) color_usuario="\033[1;32m";; #VERDE
+          3) color_usuario="\033[1;33m";; #AMARILLO
+          4) color_usuario="\033[1;34m";; #AZUL FUERTE
+          5) color_usuario="\033[1;35m";; #MORADO
+          6) color_usuario="\033[1;36m";; #AZUL CLARO
+          7) color_usuario="\033[1;37m";; #BLANCO
+      *) color_usuario="\033[1;31m";; #ROJO
+    esac
+#Asignar color a usuario 2
+  case $numero_prompt in
+          0) color_prompt="\033[1;31m";; #ROJO
+          1) color_prompt="\033[1;30m";; #NEGRO
+          2) color_prompt="\033[1;32m";; #VERDE
+          3) color_prompt="\033[1;33m";; #AMARILLO
+          4) color_prompt="\033[1;34m";; #AZUL FUERTE
+          5) color_prompt="\033[1;35m";; #MORADO
+          6) color_prompt="\033[1;36m";; #AZUL CLARO
+          7) color_prompt="\033[1;37m";; #BLANCO
+      *) color_prompt="\033[1;34m";; #AZUL FUERTE
+    esac
+
+#Evitar que el color de los jugadores sea el mismo
+if [ $color_usuario = $color_prompt ]
+then
+    color_usuario="\033[1;31m"
+    color_prompt="\033[1;34m"
+fi
+usuario=$color_usuario"luis"$borrar_formato_de_letra
+prompt=$color_prompt"@:~$PWD$"borrar_formato_de_letra
+##############################
+clear
+echo  -e "Prebeshell activa"
+while [ "$respuesta" != "salir" ];
+do
+
+ echo   -e -n  $usuario$prompt
+ read -e respuesta
+   
+case $respuesta in 
+
+		gato)	
+			#hacer comando que muestre tipo arbol
+			;;
+
+		lucky)	
+			#hacer comando que muestre tipo arbol
+			;;
+
+		prebeplayer)	
+			#hacer comando que muestre tipo arbol
+			;;
+
+
+		ayuda)	
+			echo -e "Los comandos son los siguientes:\n"
+			echo -e "arbol2 - crea una imagen gráfica de la estructura de directorios actuales\n"
+			echo -e "ayuda - despliega en pantalla informacion relevante acerca de las funciones con las que cunenta la prebeshell, además de una breve descripción de cada uno de ellos y su funcionamiento\n"
+			echo -e "buscar <archivo> <directorio> - busca un directorio especificado en un directorio igualmente especificado creditos - imprime los creditos de la prebeshell\n"
+			echo -e "dia - muestra el dia actual\n"
+			echo -e "gato - activa el juego para dos de gato\n"
+			echo -e "hora - muestra la hora actual\n"
+			echo -e "infosis - muestra informacion del sistema\n"
+			echo -e "lucky - activa el juego de azar\n"
+			echo -e "prebeplayer - ejecuta el reproductor mp3"
+			;;
+		creditos)	
+			echo "PROTECO generación 35"
+			echo "\tPrebeshell"
+			echo "Prebecarios 4 y 6"
+			echo "Silva Sandoval Cecilia"
+			echo "Garrido Mendoza Luis Alberto"
+			;;
+		arbol2)	
+			#hacer comando que muestre tipo arbol
+			;;
+
+		infosis)	
+			#hacer comando que muestre info de sistema
+			;;
+
+		buscar)
+			#hacer el comando de buscar
+			;;
+
+		hora)
+			date '+%H:%M'
+			;;
+		dia)
+			date '+%W - %B - %Y'
+
+			;;
+			*)
+			$respuesta
+
+		esac
+
+done
